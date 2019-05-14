@@ -1,0 +1,265 @@
+<html>
+    <head>
+    <link href='https://fonts.googleapis.com/css?family=Poppins:400,600,500,300,700|Quicksand:700&ver=4.9.4' rel='stylesheet' type='text/css' media='all' />
+    <style>
+        .calculator {
+            background: white;
+            width: 100%;
+            font-family: "Poppins", sans-serif;
+            margin: 0 auto 20px;
+            display: block;
+            max-width: 360px;
+            border: 1px solid #333333;
+            border-radius: 5px;
+        }
+
+        .calculator-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 400;
+            color: #333;
+            line-height: 2.6;
+            margin: 0 0 20px;
+        }
+
+        .form-field {
+            margin: 0 auto;
+            width: 80%;
+        }
+        .form-field input {
+            font-family: inherit;
+            width: 100%;
+            height: 45px;
+            margin: 10px 0;
+            padding: 0 20px;
+            box-sizing: border-box;
+            font-size: 13px;
+            color: #333333;
+            line-height: 45px;
+            border-radius: 0px;
+            border: 1px solid #9D9D9D;
+            transition: 0.6s ease-in-out;
+            text-align: center;
+        }
+
+        .form-field .results {
+            margin: 0 0 10px;
+        }
+
+        .form-field__label {
+            transition: 0.3s ease all;
+            opacity: 0;
+            font-size: 10px;
+            position: absolute;
+            margin-top: -40px;
+        }
+
+        .form-field__label--visible {
+            opacity: 1;
+            font-size: 10px;
+            margin-bottom: -10px;
+        }
+
+        .email-field {
+            position: relative;
+        }
+
+        .email-field .form-field__label {
+            left: 0;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .email-field input:focus ~ label.email-field__label {
+            opacity: 1;
+            margin-top: -5px;
+        }
+
+        .form-field input:focus ~ .form-field__label  {
+            opacity: 1;
+            margin-top: -70px;
+        }
+
+        .form-field--highlight {
+            background-color: #00a9e0;
+            width: 100%;
+        }
+
+        .form-field--highlight input.results {
+            width: 80%;
+            transform: translateX(13%);
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .form-field--highlight:not(:first-child) {
+            padding: 5px 0;
+            margin-top: 20px;
+        }
+
+        .calculator-subtitle {
+            color: #fff;
+            text-align: center;
+        }
+
+        .calculator-text {
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .button {
+            margin: 20px auto;
+            text-align: center;
+        }
+        .button button {
+            width: 80%;
+            height: 50px;
+            line-height: 40px;
+            background-color: #00a9e0;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #fff;
+            border: 0;
+            transition: 0.1s ease-in-out;
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .btn-green {
+            margin-top: 0;
+        }
+
+        .btn-green input {
+            background-color: #69be28;
+            border: none;
+            transition: .2s;
+            color: #fff;
+            font-size: 17px;
+        }
+
+        p.btn-green input:hover, p.btn-green input:active, p.btn-green input:focus {
+            background-color: #59a221;
+        }
+
+        .button input:hover, .button input:active, .button input:focus {
+            background-color: #00a9e0;
+        }
+
+        .error {
+            text-align: center;
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <form action="https://go.buzztime.com/l/306901/2019-03-01/5c1fk" method="post">
+        <div class="calculator">
+            <h2 class="calculator-title">Buzztime ROI Calculator</h2>
+            <div class="form-field">
+                <input type="number" id="avgCustDaily" value="" name="Avg_Daily_Customers" placeholder="Avg. Customers Daily"/>
+                <label for="avgCustDaily" id="avgCustDaily--label" class="form-field__label">Avg. Customers Daily</label>
+            </div>
+            <div class="form-field">
+                <input type="number" step="0.01" id="avgCheckSize" value="" name="Avg_Check_Size" placeholder="Avg. Check Size"/>
+                <label for="avgCheckSize" id="avgCheckSize--label" class="form-field__label">Avg. Check Size</label>
+            </div>
+            <p class="button calc-button">
+                <button type="button" onclick="calculate(); return false;">Compare ROI</button>
+            </p>
+        </div>         
+    </form>
+    
+</body>
+
+<script>
+    document.getElementById('avgCustDaily').addEventListener("input", function() {
+        if (document.getElementById('avgCustDaily').value !== "") {
+            document.getElementById('avgCustDaily--label').style.opacity = '1';
+            document.getElementById('avgCustDaily--label').style.marginTop = '-70px';
+        } else {
+            document.getElementById('avgCustDaily--label').style.opacity = '0';
+            document.getElementById('avgCustDaily--label').style.marginTop = '-40px';
+        }
+    });
+
+    document.getElementById('avgCheckSize').addEventListener("input", function() {
+        if (document.getElementById('avgCheckSize').value !== "") {
+            document.getElementById('avgCheckSize--label').style.opacity = '1';
+            document.getElementById('avgCheckSize--label').style.marginTop = '-70px';
+        } else {
+            document.getElementById('avgCheckSize--label').style.opacity = '0';
+            document.getElementById('avgCheckSize--label').style.marginTop = '-40px';
+        }
+    });
+
+    document.getElementById('email').addEventListener("input", function() {
+        if (document.getElementById('email').value !== "") {
+            document.getElementById('email--label').style.opacity = '1';
+            document.getElementById('email--label').style.marginTop = '-70px';
+        } else {
+            document.getElementById('email--label').style.opacity = '0';
+            document.getElementById('email--label').style.marginTop = '-40px';
+        }
+    });
+
+
+    function dailyTotalRev(avgCustDaily, avgCheckSize) {
+        dailytotalRev = parseFloat(Math.round(avgCustDaily * avgCheckSize)).toFixed(2);
+        return dailytotalRev;
+    }
+
+    function dailyTotalRevWithBzt(avgCustDaily, avgCheckSize, dailyTotalRev) {
+        dailyTotalRevWithBzt = parseFloat(Math.round( parseInt(dailyTotalRev) + (avgCustDaily * 0.31) * (avgCheckSize * 0.21) )).toFixed(2);
+
+        return dailyTotalRevWithBzt;
+    }
+
+    function calculate() {
+        let avgCustDaily = parseFloat(document.getElementById('avgCustDaily').value);
+        let avgCheckSize = parseFloat(document.getElementById('avgCheckSize').value);
+        
+        // If user fields have values, populate 2nd form section.
+        if (avgCustDaily && avgCheckSize) {
+            // Do calculations
+            let dailyTotalRevValue = dailyTotalRev(avgCustDaily, avgCheckSize);
+            let dailyTotalRevWithBztValue = dailyTotalRevWithBzt(avgCustDaily, avgCheckSize, dailyTotalRevValue);
+            let weeklyDifference = (dailyTotalRevWithBztValue - dailyTotalRevValue) * 7;
+
+            
+
+            // Populate new section with values plugged in
+            let html = '<div class="form-field"><label for="dailyTotalRev" class="form-field__label--visible">Curent Daily Total Revenue</label><input class="results" id="dailyTotalRev" name="Daily_Revenue" value="$%dailyTotalRev%" readonly/></div><div class="form-field"><label for="dailyTotalRevWithBzt" class="form-field__label--visible">Total Revenue With Buzztime*</label><input class="results" id="dailyTotalRevWithBzt" name="Daily_Revenue_With_Buzztime" value="$%dailyTotalRevWithBzt%" readonly/></div><div class="form-field form-field--highlight"><h3 class="calculator-subtitle">Additional Weekly Revenue</h3><input class="results" id="adtlWeeklyRev" value="$%adtlWeeklyRev%" name="Additional_Revenue_With_Buzztime" readonly/><div class="form-field email-field"><input type="email" id="email" value="" name="Email" placeholder="Email"/><label for="email" id="email--label" class="form-field__label email-field__label">Email</label></div><div class="form-field"><p class="button btn-green"><input type="submit" value="Email me my Revenue*"/></p></div></div>';
+            newHtml = html.replace('%dailyTotalRev%', dailyTotalRevValue).replace('%dailyTotalRevWithBzt%', dailyTotalRevWithBztValue).replace('%adtlWeeklyRev%', weeklyDifference);
+            
+            // Remove error message if visible
+            if (document.querySelector('.error')) {
+                document.querySelector('.calculator').removeChild(document.querySelector('.error'));
+            }
+            document.querySelector('.calc-button button').setAttribute( "onclick", "javascript: recalc(); return false;" )
+            document.querySelector('.calculator').insertAdjacentHTML('beforeend', newHtml);
+        } else {
+            let html = '<p class="error">Please input both values above</p>';
+            document.querySelector('.calculator').insertAdjacentHTML('beforeend', html);
+        }
+        return false;
+    }    
+
+    function recalc() {
+        let avgCustDaily = parseFloat(document.getElementById('avgCustDaily').value);
+        let avgCheckSize = parseFloat(document.getElementById('avgCheckSize').value);
+
+        let dailyTotalRevValue = dailyTotalRev(avgCustDaily, avgCheckSize);
+        let dailyTotalRevWithBztValue = parseFloat(Math.round( parseInt(dailyTotalRevValue) + (avgCustDaily * 0.31) * (avgCheckSize * 0.21) )).toFixed(2);
+        let weeklyDifference = (dailyTotalRevWithBztValue - dailyTotalRevValue) * 7;
+
+        document.querySelector('#dailyTotalRev').value = '$' + dailyTotalRevValue;
+        document.querySelector('#dailyTotalRevWithBzt').value = '$' + dailyTotalRevWithBztValue;
+        document.querySelector('#adtlWeeklyRev').value = '$' + weeklyDifference;
+    }
+</script>
+</html>

@@ -1,0 +1,402 @@
+<html>	
+	<head>
+		<link href='https://fonts.googleapis.com/css?family=Poppins:400,600,500,300,700|Quicksand:700&ver=4.9.4' rel='stylesheet' type='text/css' media='all' />
+		<style>
+		    .generator {
+		    	background: white;
+		        width: 100%;
+		        font-family: "Poppins", sans-serif;
+		        margin: 0 auto;
+		        display: block;
+		        max-width: 360px;
+		        border: 1px solid #333333;
+		        border-radius: 5px;
+		    }
+		     .generator-title {
+		        text-align: center;
+		        font-size: 18px;
+		        font-weight: 400;
+		        color: #9d9d9d;
+		        line-height: 2.6;
+		        margin: 0 0 20px;
+		    }
+		    .form-field {
+		        margin: 0 auto;
+		        width: 80%;
+		    }
+		    .form-field input {
+		        font-family: inherit;
+		        width: 100%;
+		        height: 45px;
+		        margin: 0 0 10px;
+		        padding: 0 20px;
+		        box-sizing: border-box;
+		        font-size: 13px;
+		        color: #333333;
+		        line-height: 45px;
+		        border-radius: 0px;
+		        border: 1px solid #9D9D9D;
+		        transition: 0.6s ease-in-out;
+		        text-align: center;
+		    }
+		    .generate {
+		        margin: 20px auto;
+		        text-align: center;
+		    }
+		    .generate button {
+		        width: 80%;
+		        height: 50px;
+		        line-height: 40px;
+		        background-color: #00a9e0;
+		        font-size: 12px;
+		        letter-spacing: 1px;
+		        text-transform: uppercase;
+		        color: #fff;
+		        border: 0;
+		        transition: 0.1s ease-in-out;
+		        outline: none;
+		        -webkit-appearance: none;
+		        cursor: pointer;
+		    }
+			.generate input:hover, .generate input:active, .generate input:focus {
+				background-color: #00a9e0;
+			}    
+		</style>
+	</head>
+	<body>
+		<div class="generator" id="generator">
+			<h2 class="generator-title">Cocktail Name Generator</h2>
+			<div class="form-field">
+				<input type="text" id="output-field" value="Click 'Generate Name'"/>
+			</div>
+			<p class="generate">
+				<button onclick="generateBarName();">Generate Name</button>
+			</p>
+		</div>
+	</body>
+	<script>	
+		function selectWord(colAValues, colBValues, colCValues) {
+			// Generate random number for each column
+			let randomNumA = Math.random();
+			let randomNumB = Math.random();
+			let randomNumC = Math.random();
+
+			// Find highest value below randomly generated number
+			// Choose word based on indexed value
+			colALowerValues = [];
+			colBLowerValues = [];
+			colCLowerValues = [];
+			for (i = 0; i < colAValues.length; i++) {
+				if (colAValues[i] < randomNumA) {
+					colALowerValues.push(colAValues[i]);
+				}
+			}
+			colALowerValues = colALowerValues.reverse();
+			colAPosition = colAValues.indexOf(colALowerValues[0]);
+
+			for (i = 0; i < colBValues.length; i++) {
+				if (colBValues[i] < randomNumB) {
+					colBLowerValues.push(colBValues[i]);
+				}
+			}
+			colBLowerValues = colBLowerValues.reverse();
+			colBPosition = colBValues.indexOf(colBLowerValues[0]);
+
+			for (i = 0; i < colCValues.length; i++) {
+				if (colCValues[i] < randomNumC) {
+					colCLowerValues.push(colCValues[i]);
+				}
+			}
+			colCLowerValues = colCLowerValues.reverse();
+			colCPosition = colCValues.indexOf(colCLowerValues[0]);
+
+			return colAPosition, colBPosition, colCPosition;
+		}
+
+		function generateBarName() {
+			// Define word lists
+			const colA = ['Laughing',
+				'Kinky',
+				'Kilted',
+				'Just Call Me',
+				'Insane',
+				'Iced Out',
+				'Howling',
+				'Hot Buttered',
+				'Hot',
+				'Ginger',
+				'Fuzzy',
+				'Frigid',
+				'Freaky',
+				'Foxy',
+				'Flying',
+				'Legit',
+				'Flexing',
+				'Flannel',
+				'Flaming',
+				'Fizzy',
+				'Exploding',
+				'Lit',
+				'Epic',
+				'Elegant',
+				"Einstien's",
+				'Dirty',
+				'Devious',
+				'Crunk',
+				'Creamy',
+				'Cranberry',
+				'Cinnamon',
+				'Cherry Red',
+				'Cheeky',
+				'Charming',
+				'Buttery',
+				'Blue',
+				"Blackbeard's",
+				'Bittersweet',
+				"Betty's",
+				'Berry',
+				'Bearded',
+				'Maple',
+				'Minty',
+				'Molten',
+				"Bangin'",
+				'Banana',
+				'Bahama',
+				'Adorbs',
+				"Lincoln's",
+				'Mystic',
+				'Naughty',
+				'Noble',
+				'Off the Chain',
+				'OMG',
+				'Orange',
+				'Penthouse',
+				'Pineapple',
+				'Pink',
+				"Poe's",
+				'Prancing',
+				'Pure',
+				"Putin's",
+				'Quickly Escalating',
+				'Raging',
+				'Sage',
+				'Salty',
+				'Screwy',
+				'Sexy',
+				'Siracha',
+				'Smirking',
+				'Smoky',
+				'Snarky',
+				'Snowy',
+				'Southern',
+				'Sparkling',
+				'Spicy',
+				'Stay Woke',
+				'Stinging',
+				'Supreme',
+				'Sweet',
+				"Swingin'",
+				'Swirled',
+				"Bishop's",
+				"Butler's",
+				"Deacon's",
+				"Frat Bro's",
+				"King's",
+				"Lady's",
+				"Queen's",
+				'Royal',
+				'Tipsy',
+				'Tricked Out',
+				'Turnt Up',
+				'Upside Down',
+				'Wet',
+				'Wicked'];
+			const colB = ['Holler',
+				'Hipster',
+				'Hippo',
+				'Henchman',
+				'Haze',
+				'Hawaiian',
+				'Gumdrop',
+				'Gnome',
+				'Ghost',
+				'Gangster',
+				'Frenchman',
+				'Fox',
+				'Fire',
+				'Elephant',
+				'Ecstasy',
+				'Honey Badger',
+				'Duchess',
+				'Dragon Egg',
+				'Direwolf ',
+				'Dickens',
+				'Diablo',
+				'Irishman',
+				'Devil',
+				'Dazzle',
+				'Dancer',
+				'Czar',
+				'Corgi',
+				'Cobbler',
+				'Charmer',
+				'Captain',
+				'Canadian',
+				'Butler',
+				'Boss',
+				'Boogie',
+				'Blues',
+				'Bite',
+				'Belle',
+				'Beaver',
+				'Beagle',
+				'Banana',
+				'Ballerina',
+				'Jolly Roger',
+				'Kick',
+				'Kitten',
+				'Baller',
+				'Bae',
+				'Apple',
+				'Angel',
+				'Hyena',
+				'Lady',
+				'Librarian',
+				'Llama',
+				'Love Boat',
+				'Magic',
+				'Mailman',
+				'Manchild',
+				'Mary',
+				'Maverick',
+				'Meercat',
+				'Meow',
+				'Mind Blower',
+				'Minion',
+				'Minx',
+				'Mobster',
+				'Monk',
+				'Nun',
+				'Panda',
+				'Paramour',
+				'Parrot',
+				'Pie',
+				'Pony',
+				'Priest',
+				'Pug',
+				'Queen',
+				'Regret',
+				'Rose',
+				'Russian',
+				'Scorpion',
+				'Scotsman',
+				'Shark',
+				'Shennanigans',
+				'Shipwreck',
+				'Sloth',
+				'Spy',
+				'Statesman',
+				'Taxman',
+				'Tickler',
+				'Tiger',
+				'T-Rex',
+				'Trickster',
+				'Tutu',
+				'Typhoon',
+				'Unicorn',
+				'Walrus',
+				'Whale',
+				'Wizard',
+				'Zombie'];
+			const colC = ['Blitz',
+				'Breeze',
+				'Buzz',
+				'Chiller',
+				'Collins',
+				'Cosmo',
+				'Crush',
+				'Cup',
+				'Cure',
+				'Daiquiri',
+				'Delight',
+				'Dream',
+				'Elixir',
+				'Escape ',
+				'Flash',
+				'G&T',
+				'Gimlet',
+				'Goblet',
+				'Grog',
+				'Julep',
+				'Kiss',
+				'Last Word',
+				'Margarita',
+				'Martini ',
+				'on the Beach',
+				'Potion',
+				'Punch',
+				'Revenge',
+				'Royale',
+				'Shandy',
+				'Shooter',
+				'Shot',
+				'Side Car',
+				'Sling',
+				'Slushie',
+				'Sour',
+				'Special',
+				'Splash',
+				'Spritz',
+				'Stinger',
+				'Storm',
+				'Stunner',
+				'Sunrise',
+				'Sunset',
+				'Swizzler',
+				'Tincture',
+				'Toddy',
+				'Tonic',
+				'Vodka Tonic',
+				'Zombie'];
+
+			// Define word list Lengths
+			const colALeng = colA.length;
+			const colBLeng = colB.length;
+			const colCLeng = colC.length;
+
+			// Breakdown incrememnt values based on length
+			const colAIncrement = 1 / colALeng;
+			const colBIncrement = 1 / colBLeng;
+			const colCIncrement = 1 / colCLeng;
+
+			// Create selectable number range for each word
+			const colAValues = [];
+			const colBValues = [];
+			const colCValues = [];
+
+			for (i = 0; i < colA.length; i++) {
+				colAValues[i] = i * colAIncrement;
+			}
+
+			for (i = 0; i < colB.length; i++) {
+				colBValues[i] = i * colBIncrement;
+			}
+
+			for (i = 0; i < colC.length; i++) {
+				colCValues[i] = i * colCIncrement;
+			}
+
+			// Choose word based on random number
+			selectWord(colAValues, colBValues, colCValues);
+
+			// Assign selected word to variable
+			let colAWord = colA[colAPosition];
+			let colBWord = colB[colBPosition];
+			let colCWord = colC[colCPosition];
+			let barName = colAWord + ' ' + colBWord + ' ' + colCWord;
+
+			document.getElementById('output-field').value = barName;
+			return false;
+		}
+	</script>
+</html>	

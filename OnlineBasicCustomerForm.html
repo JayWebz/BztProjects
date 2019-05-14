@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Online SiteHub Customer Form</title>
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		body {
+			font-family: 'Poppins', sans-serif;
+		}
+
+		form {
+			width: 100%;
+			background-color: #F0F0F1;
+			max-width: 600px;
+			margin: 0 auto;
+		}
+
+		.form-heading {
+			text-align: center;
+			font-size: 26px;
+			padding-top: 20px;
+		}
+
+		.form-field,
+		.form-group p {
+			width: 80%;
+			margin: 0 auto 30px;
+			position: relative;
+		}
+
+		.form-group p {
+			font-size: 10px;
+		}
+
+		.form-field input, 
+		.form-field select, 
+		.form-field textarea {
+			display: block;
+			width: 100%;
+			height: 30px;
+			border-radius: 5px;
+			outline: none;
+			border: 1px solid #5c7f92;
+			box-sizing: border-box;
+			padding-left: 10px;
+			transition: 0.3s ease all;
+			position: relative;
+		}
+
+		.form-field input::-webkit-input-placeholder {
+			color: #333;
+		} 
+		.form-field input::-moz-placeholder {
+			color: #333;
+		}
+		.form-field input:-ms-input-placeholder {
+			color: #333;
+		}
+		.form-field input::-webkit-input-placeholder {
+			color: #333;
+		}
+		.form-field select:first-child {
+			color: #333;
+		}
+
+
+		.form-field input:focus,
+		.form-field select:focus {
+			transform: translateY(-5px);
+			width: calc(100% + 10px);
+			margin-left: -5px;
+			box-shadow: 0 2px 7px #777;
+		}
+
+		.form-field__label {
+            transition: 0.3s ease all;
+            opacity: 0;
+            font-size: 10px;
+            position: absolute;
+            top: 15px;
+        }
+
+        .form-field__label--visible {
+            opacity: 1;
+            font-size: 10px;
+            top: -15px;
+        }
+
+        .form-field input:focus ~ .form-field__label,
+        .form-field select:focus ~ .form-field__label  {
+            top: -20px;
+            opacity: 1;
+        }
+
+		.form-group--two-col {
+			display: flex;
+			width: 80%;
+			margin: 30px auto -30px;
+		}
+
+		.form-group--two-col:last-child {
+			margin-bottom: -20px;
+		}
+
+		.form-field--two-col {
+			margin-bottom: 10px;
+		}
+
+		.form-group--two-col .form-field:first-child {
+			margin-right: 15px;
+		}
+
+		@media only screen and (max-width: 400px) {
+			.form-group--two-col {
+				display: block;
+				width: 100%;
+				margin: 30px auto 0;
+			}
+
+			.form-group--two-col .form-field:first-child {
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			
+
+			.form-group--two-col .form-field--two-col:last-child {
+				margin-top: 30px;
+				padding-bottom: 0;
+			}
+		}
+
+		.form-field .textarea {
+			height: 160px;
+			width: calc(100% - 20px);
+			overflow-y: scroll;
+			display: block;
+			background-color: white;
+			border-radius: 5px;
+			border: 1px solid #537f92;
+			font-size: 12px;
+			padding: 0 10px;
+		}
+
+		.form-field__checkbox-group {
+			display: flex;
+		}
+
+		.form-field__checkbox-group label {
+			display: flex;
+			align-items: center;
+			transition: 0.3s ease all;
+			cursor: pointer;
+			color: #5c7f92;
+		}
+
+		.form-field__checkbox-group input {
+			display:none;
+		}
+
+		.form-field__checkbox-group p.error {
+			display: block;
+		}
+		
+		.form-field__checkbox-group input + label:before {
+			content:"\2610";
+			font-size: 25px;
+			padding-right: 15px;
+		}
+		
+		.form-field__checkbox-group input:checked + label:before {
+			content:"\2611";
+			font-size: 25px;
+		}
+		
+		.form-field__checkbox-group label:hover,
+		.form-field__checkbox-group label:focus,
+		.form-field__checkbox-group label:active {
+			transform: scale(1.1) translateX(4%);
+			outline: none;
+			color: #5c7f92;
+			font-weight: 700;
+			text-shadow:
+			    -2px -2px white,
+			    -2px 2px white,
+			    2px -2px white,
+			    2px 2px white;			
+		}
+
+		.form-field .error {
+			color: #ed4337;
+			font-weight: 700;
+			font-size: 14px;
+			line-height: 1;
+			margin: 2px 0;
+		}
+
+		.form-field__checkbox-group .error {
+			display: block;
+		}
+
+		.form-field:last-child {
+			padding-bottom: 20px;
+		}
+
+		.form-field .submit {
+			font-size: 20px;
+			background-color: #5c7f92!important;
+			color: #fff;
+			height: 40px;
+			font-weight: 700;
+			text-transform: uppercase;
+			cursor: pointer;
+		}
+
+		.form-field .submit:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 10px #204A61;
+			border: none;
+		}
+
+		.form-field .submit:active,
+		.form-field .submit:focus {
+			transform: translateY(-5px);
+			box-shadow: 0 5px #204A61;
+			width: 100%;
+			margin-left: 0;
+			border: none;
+		}
+
+		.text-link {
+			color: #5c7f92;
+			font-weight: 700;
+			position: relative;
+  			text-decoration: none;
+			background-size: 1px 1em;
+			display: inline;
+			transition: 0.3s ease all;
+			box-shadow:
+			    inset 0 -0.075em #F0F0F1,
+			    inset 0 -0.1em #F0F0F1,
+			    inset 0 -0.15em #F0F0F1,
+			    inset 0 -0.175em #F0F0F1;
+		}
+
+		.text-link:hover,
+		.text-link:focus,
+		.text-link:active {
+			color: #5c7f92;
+			outline: none;
+			text-decoration: none;
+			text-shadow:
+			    -2px -2px white,
+			    -2px 2px white,
+			    2px -2px white,
+			    2px 2px white;
+			box-shadow:
+			    inset 0 -0.075em white,
+			    inset 0 -0.1em #5c7f92,
+			    inset 0 -0.15em white,
+			    inset 0 -0.175em #5c7f92;
+		}
+
+		.textarea ul {
+			list-style-type: none;
+		}
+
+		.u-margin-bottom {
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+<form method="post" id="form"
+action="https://909195-sb1.extforms.netsuite.com/app/site/crm/externalcustrecordpage.nl?compid=909195_SB1&formid=333&h=AACffht_Oc-HoagFzY7K5_Qemt8AZihmuWo">
+	<!--  rectype always defaulted to 505 for sandbox -->
+	<input type="hidden" name="rectype" id="rectype" value="505"><input type="hidden" name="custrecord_sitehub_subsidiary" id="custrecord_sitehub_subsidiary" value="4"><input type="hidden" name="custrecord_sitehub_sales_type" id="custrecord_sitehub_sales_type" value="21">
+	<h1 class="form-heading">Buzztime Basic Service<br/>Customer Order Form</h1>
+	<div class="form-field">
+		<input type="text" name="custrecord_sitehub_company_name" id="custrecord_sitehub_company_name" value="" placeholder="Company Name*">
+		<label class="form-field__label">Company Name*</label>
+	</div>
+	<div class="form-field">
+		<input type="text" name="custrecord_sitehub_legal_name" id="custrecord_sitehub_legal_name" value="" placeholder="Customer Legal Entity's Name">
+		<label class="form-field__label">Customer Legal Entity's Name*</label>
+	</div>
+	<div class="form-field">
+		<input type="text" name="custrecord_sitehub_first_name" id="custrecord_sitehub_first_name" value="" placeholder="First Name*">
+		<label class="form-field__label">First Name*</label>
+	</div>
+	<div class="form-field">
+		<input type="text" name="custrecord_sitehub_last_name" id="custrecord_sitehub_last_name" value="" placeholder="Last Name*">
+		<label class="form-field__label">Last Name*</label>
+	</div>
+	<div class="form-field">
+		<input type="text" name="custrecord_sitehub_job_title" id="custrecord_sitehub_job_title" value="" placeholder="Job Title*">
+		<label class="form-field__label">Job Title*</label>
+	</div>
+	<div class="form-field">
+		<input type="text" name="custrecord_sitehub_phone" id="custrecord_sitehub_phone" value="" placeholder="Phone*">
+		<label class="form-field__label">Phone*</label>
+	</div>
+	<div class="form-field">
+		<input type="text" name="custrecord_sitehub_email" id="custrecord_sitehub_email" value="" placeholder="Email*">
+		<label class="form-field__label">Email*</label>
+	</div>
+	<div class="form-group">
+		<div class="form-field">
+			<input type="text" name="custrecord_sitehub_shipping_addr_1" id="custrecord_sitehub_shipping_addr_1" value="" placeholder="Address 1*">
+			<label class="form-field__label">Shipping Address - Address 1*</label>
+		</div>
+		<div class="form-field">
+			<input type="text" name="custrecord_sitehub_shipping_addr_2" id="custrecord_sitehub_shipping_addr_2" value="" placeholder="Address 2">
+			<label class="form-field__label">Shipping Address - Address 2</label>
+		</div>
+		<div class="form-group--two-col">
+			<div class="form-field form-field--two-col">
+				<input type="text" name="custrecord_sitehub_shipping_addr_city" id="custrecord_sitehub_shipping_addr_city" value="" placeholder="City*">
+				<label class="form-field__label">Shipping Address - City*</label>
+			</div>
+			<div class="form-field form-field--two-col">
+				<select name="custrecord_sitehub_shipping_addr_state" id="custrecord_sitehub_shipping_addr_state">
+					<option selected disabled>Please Select a State/Province*</option>
+					<option value="0">Alabama</option>
+					<option value="1">Alaska</option>
+					<option value="2">Arizona</option>
+					<option value="3">Arkansas</option>
+					<option value="53">Armed Forces Americas</option>
+					<option value="52">Armed Forces Europe</option>
+					<option value="54">Armed Forces Pacific</option>
+					<option value="4">California</option>
+					<option value="5">Colorado</option>
+					<option value="6">Connecticut</option>
+					<option value="7">Delaware</option>
+					<option value="8">District of Columbia</option>
+					<option value="9">Florida</option>
+					<option value="10">Georgia</option>
+					<option value="11">Hawaii</option>
+					<option value="12">Idaho</option>
+					<option value="13">Illinois</option>
+					<option value="14">Indiana</option>
+					<option value="15">Iowa</option>
+					<option value="16">Kansas</option>
+					<option value="17">Kentucky</option>
+					<option value="18">Louisiana</option>
+					<option value="19">Maine</option>
+					<option value="20">Maryland</option>
+					<option value="21">Massachusetts</option>
+					<option value="22">Michigan</option>
+					<option value="23">Minnesota</option>
+					<option value="24">Mississippi</option>
+					<option value="25">Missouri</option>
+					<option value="26">Montana</option>
+					<option value="27">Nebraska</option>
+					<option value="28">Nevada</option>
+					<option value="29">New Hampshire</option>
+					<option value="30">New Jersey</option>
+					<option value="31">New Mexico</option>
+					<option value="32">New York</option>
+					<option value="33">North Carolina</option>
+					<option value="34">North Dakota</option>
+					<option value="35">Ohio</option>
+					<option value="36">Oklahoma</option>
+					<option value="37">Oregon</option>
+					<option value="38">Pennsylvania</option>
+					<option value="39">Puerto+Rico</option>
+					<option value="40">Rhode Island</option>
+					<option value="41">South Carolina</option>
+					<option value="42">South Dakota</option>
+					<option value="43">Tennessee</option>
+					<option value="44">Texas</option>
+					<option value="45">Utah</option>
+					<option value="46">Vermont</option>
+					<option value="47">Virginia</option>
+					<option value="48">Washington</option>
+					<option value="49">West Virginia</option>
+					<option value="50">Wisconsin</option>
+					<option value="51">Wyoming</option>
+					<option value="101">Alberta</option>
+					<option value="102">British Columbia</option>
+					<option value="103">Manitoba</option>
+					<option value="104">New Brunswick</option>
+					<option value="105">Newfoundland</option>
+					<option value="107">Northwest Territories</option>
+					<option value="106">Nova Scotia</option>
+					<option value="108">Nunavut</option>
+					<option value="109">Ontario</option>
+					<option value="110">Prince Edward Island</option>
+					<option value="111">Quebec</option>
+					<option value="112">Saskatchewan</option>
+					<option value="113">Yukon</option>
+	  			</select>
+	  			<label class="form-field__label">Shipping Address - State*</label>
+	  		</div>
+	  	</div>
+	  	<div class="form-group--two-col">
+			<div class="form-field">
+	  			<input type="text" name="custrecord_sitehub_shipping_addr_postcod" id="custrecord_sitehub_shipping_addr_postcod" value="" placeholder="Postal Code*">
+	  			<label class="form-field__label">Shipping Address - Postal Code*</label>
+	  		</div>
+			<div class="form-field">
+				<select name="custrecord_sitehub_shipping_addr_country" id="custrecord_sitehub_shipping_addr_country">
+					<option selected disabled>Please Select a Country*</option>
+			    	<option value="230">United States</option>
+			    	<option value="37">Canada</option>
+			  	</select>
+			  	<label class="form-field__label">Shipping Address - Country*</label>
+			</div>
+		</div>
+	</div>
+	<div class="form-field">
+		<select name="custrecord_sitehub_salesrep" id="custrecord_sitehub_salesrep">
+			<option selected disabled>Please Select a Sales Rep*</option>
+			<option value="1957807">Blake Ferraro</option>
+			<option value="1957808">Shelly Hradecky</option>
+			<option value="1885948">Jeff Van Slyke</option>
+			<option value="1949992">Logan Yanoff</option>
+			<option value="165902">George Walker</option>
+			<option value="1947849">Kevin Poniatoski</option>
+			<option value="1957220">Ana Scheidecker</option>
+			<option value="1957507">Jon Dubin</option>
+			<option value="1957508">Brian Davis</option>
+			<option value="1957882">Lori Epstein</option>
+			<option value="150574">Beth Kite</option>
+			<option value="1957881">Keith Hertz</option>
+	  	</select>
+	  	<label class="form-field__label">Sales Rep*</label>
+	</div>
+	<div class="form-field">
+		<input type="text" name="custrecord_sitehub_device_serial" id="custrecord_sitehub_device_serial" value="" placeholder="Device Serial Number*">
+		<label class="form-field__label">Device Serial Number*</label>
+	</div>
+
+	<div class="form-field">
+		<label class="form-field__label form-field__label--visible">Terms and Conditions</label>
+		<input readonly type="hidden" name="custrecord_sitehub_terms_and_conditions" id="custrecord_sitehub_terms_and_conditions" value="contract text">
+		<a class="text-link" href="https://www.buzztime.com/business/buzztime-basic-service-agreement-terms-and-conditions-2019_05_02/" target="_blank">Download Terms and Conditions PDF</a>
+	</div>
+
+	<div class="form-field">
+		<p>You understand that by checking the "Accept Buzztime Basic Service Agreement Terms and Conditions" box, you indicate that you have had the opportunity to review the <a class="text-link" href="https://www.buzztime.com/business/buzztime-basic-service-agreement-terms-and-conditions-2019_05_02/" target="_blank">Buzztime Basic Service Agreement Terms and Conditions</a>, which govern your use of the Buzztime products and services as they constitute a legally binding agreement between you and Buzztime, and you agree to be bound by the terms.</p>
+		<div class="form-field__checkbox-group">
+			<input type="checkbox" name="agree" id="agree"/>
+			<label for="agree" tabindex=0>
+				<strong>Accept Buzztime Basic Service Agreement Terms and Conditions</strong>
+			</label>
+		</div>
+	</div>
+	
+	<input type="hidden" name="custrecord_sitehub_termsconds_accp_on" id="custrecord_sitehub_termsconds_accp_on" value="">
+	<input type="hidden" name="custrecord_sitehub_termsconds_accp_by" id="custrecord_sitehub_termsconds_accp_by" value="">
+
+	<div class="form-field">
+		<input class="submit" value="Submit &#9659;" type="button" onclick="event.preventDefault(); handleSubmission();">
+	</div>
+</form>
+<script>
+	function handleSubmission() {
+		var DOMstrings = {
+			form: 'form',
+			companyName: 'custrecord_sitehub_company_name',
+			legalName: 'custrecord_sitehub_legal_name',
+			firstName: 'custrecord_sitehub_first_name',
+			lastName: 'custrecord_sitehub_last_name',
+			jobTitle: 'custrecord_sitehub_job_title',
+			phone: 'custrecord_sitehub_phone',
+			email: 'custrecord_sitehub_email',
+			address: {
+				address1: 'custrecord_sitehub_shipping_addr_1',
+				address2: 'custrecord_sitehub_shipping_addr_2',
+				city: 'custrecord_sitehub_shipping_addr_city',
+				state: 'custrecord_sitehub_shipping_addr_state',
+				postal: 'custrecord_sitehub_shipping_addr_postcod',
+				country: 'custrecord_sitehub_shipping_addr_country'
+			},
+			salesRep: 'custrecord_sitehub_salesrep',
+			serial: 'custrecord_sitehub_device_serial',
+			terms: 'custrecord_sitehub_terms_and_conditions',
+			accept: 'agree',
+			acceptedBy: 'custrecord_sitehub_termsconds_accp_by',
+			acceptedOn: 'custrecord_sitehub_termsconds_accp_on'
+		};
+
+		var DOMerrors = {
+			blankCompanyName: 'Please enter a Company Name.',
+			minCompanyName: 'Please enter a Company Name with at least 3 characters.',
+			blankFirstName: 'Please enter a First Name.',
+			minFirstName: 'Please enter a First Name with at least 2 characters.',
+			blankLastName: 'Please enter a Last Name.',
+			minLastName: 'Please enter a Last Name with at least 2 characters.',
+			blankJobTitle: 'Please enter a Job Title.',
+			minJobTitle: 'Please enter a Job Title with at least 3 characters.',
+			blankPhone: 'Please enter a valid Phone Number.',
+			validPhone: 'Please enter a valid Phone Number with 10 digits',
+			blankEmail: 'Please enter a valid Email Address.',
+			invalidEmail: 'Please enter a valid Email Address: yourname@example.com.',
+			blankAddress: 'Please enter an Address.',
+			blankCity: 'Please enter a City.',
+			unselectedState: 'Please select a State/Province.',
+			blankPostal: 'Please enter a Postal Code.',
+			unselectedCountry: 'Please select a Country.',
+			unselectedSalesRep: 'Please select a Sales Rep.',
+			blankSerial: 'Please enter a valid Serial Number.',
+			invalidSerialFormat: 'A Serial Number must begin with: PCS',
+			uncheckedTerms: 'Please Accept the Terms and Conditions'
+
+		};
+
+		// Clear current errors
+		if (document.querySelectorAll('.error')) {
+			for (var i = 0; i < document.querySelectorAll('.error').length; i++) {
+				document.querySelectorAll('.error')[i].style.display = 'none';
+			}
+		}
+		var errors = 0;
+		
+
+		// Company Name
+		if (!document.getElementById(DOMstrings.companyName).value) {
+			var html = '<p class="error">' + DOMerrors.blankCompanyName +'</p>';
+			document.getElementById(DOMstrings.companyName).insertAdjacentHTML('afterend', html);
+			errors++;
+		} else if (document.getElementById(DOMstrings.companyName).value.length < 3) {
+			var html = '<p class="error">' + DOMerrors.minCompanyName +'</p>';
+			document.getElementById(DOMstrings.companyName).insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// First Name
+		if (!document.getElementById(DOMstrings.firstName).value) {
+			var html = '<p class="error">' + DOMerrors.blankFirstName +'</p>';
+			document.getElementById(DOMstrings.firstName).insertAdjacentHTML('afterend', html);
+			errors++;
+		} else if (document.getElementById(DOMstrings.firstName).value.length < 2) {
+			var html = '<p class="error">' + DOMerrors.minFirstName +'</p>';
+			document.getElementById(DOMstrings.firstName).insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// Last Name
+		if (!document.getElementById(DOMstrings.lastName).value) {
+			var html = '<p class="error">' + DOMerrors.blankLastName +'</p>';
+			document.getElementById(DOMstrings.lastName).insertAdjacentHTML('afterend', html);
+			errors++;
+		} else if (document.getElementById(DOMstrings.lastName).value.length < 2) {
+			var html = '<p class="error">' + DOMerrors.minLastName +'</p>';
+			document.getElementById(DOMstrings.lastName).insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// Job Title
+		if (!document.getElementById(DOMstrings.jobTitle).value) {
+			var html = '<p class="error">' + DOMerrors.blankJobTitle +'</p>';
+			document.getElementById(DOMstrings.jobTitle).insertAdjacentHTML('afterend', html);
+			errors++;
+		} else if (document.getElementById(DOMstrings.jobTitle).value.length < 3) {
+			var html = '<p class="error">' + DOMerrors.minJobTitle +'</p>';
+			document.getElementById(DOMstrings.jobTitle).insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// Phone
+		var phoneNum = document.getElementById(DOMstrings.phone).value;
+		var formattedPhone = phoneNum.replace(/[^0-9]/ig, "");
+
+		if (!document.getElementById(DOMstrings.phone).value) {
+			var html = '<p class="error">' + DOMerrors.blankPhone +'</p>';
+			document.getElementById(DOMstrings.phone).insertAdjacentHTML('afterend', html);
+			errors++;
+		} else if (formattedPhone.length < 10) {
+			var html = '<p class="error">' + DOMerrors.validPhone +'</p>';
+			document.getElementById(DOMstrings.phone).insertAdjacentHTML('afterend', html);
+			errors++;
+		} 
+		
+		document.getElementById(DOMstrings.phone).value = formattedPhone;
+		
+		// Email
+		var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    	var emailValidation = regex.test(String(document.getElementById(DOMstrings.email).value).toLowerCase());
+
+		if (!document.getElementById(DOMstrings.email).value) {
+			var html = '<p class="error">' + DOMerrors.blankEmail +'</p>';
+			document.getElementById(DOMstrings.email).insertAdjacentHTML('afterend', html);
+			errors++;
+		} else if (!emailValidation) {
+    		var html = '<p class="error">' + DOMerrors.invalidEmail +'</p>';
+			document.getElementById(DOMstrings.email).insertAdjacentHTML('afterend', html);
+			errors++;
+    	}
+
+    	// Address
+    	if (!document.getElementById(DOMstrings.address.address1).value) {
+			var html = '<p class="error">' + DOMerrors.blankAddress +'</p>';
+			document.getElementById(DOMstrings.address.address2).insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// City
+		if (!document.getElementById(DOMstrings.address.city).value) {
+			var html = '<p class="error">' + DOMerrors.blankCity +'</p>';
+			document.getElementById(DOMstrings.address.city).insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// State
+		if (document.getElementById(DOMstrings.address.state).value === 'Please Select a State/Province*') {
+			var html = '<p class="error">' + DOMerrors.unselectedState +'</p>';
+			document.getElementById(DOMstrings.address.state).insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// Postal Code
+		if (!document.getElementById(DOMstrings.address.postal).value) {
+			var html = '<p class="error">' + DOMerrors.blankPostal +'</p>';
+			document.getElementById(DOMstrings.address.postal).insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// Country
+		if (document.getElementById(DOMstrings.address.country).value === 'Please Select a Country*') {
+			var html = '<p class="error">' + DOMerrors.unselectedCountry +'</p>';
+			document.getElementById(DOMstrings.address.country).insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// Sales Rep
+		if (document.getElementById(DOMstrings.salesRep).value === 'Please Select a Sales Rep*') {
+			var html = '<p class="error">' + DOMerrors.unselectedSalesRep +'</p>';
+			document.getElementById(DOMstrings.salesRep).insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// Device Serial Number
+		var serial = document.getElementById(DOMstrings.serial).value;
+		var formattedSerial = serial.toUpperCase();
+		document.getElementById(DOMstrings.serial).value = formattedSerial;
+
+		if (!document.getElementById(DOMstrings.serial).value) {
+			var html = '<p class="error">' + DOMerrors.blankSerial +'</p>';
+			document.getElementById(DOMstrings.serial).insertAdjacentHTML('afterend', html);
+			errors++;
+		} else if (!document.getElementById(DOMstrings.serial).value.startsWith("PCS")) {
+			var html = '<p class="error">' + DOMerrors.invalidSerialFormat +'</p>';
+			document.getElementById(DOMstrings.serial).insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// Accept Terms
+		if (!document.getElementById(DOMstrings.accept).checked) {
+			var html = '<p class="error">' + DOMerrors.uncheckedTerms +'</p>';
+			document.querySelector('.form-field__checkbox-group').insertAdjacentHTML('afterend', html);
+			errors++;
+		}
+
+		// Set Accepted On and Accepted By fields
+		document.getElementById(DOMstrings.acceptedBy).value = document.getElementById(DOMstrings.jobTitle).value + " " + document.getElementById(DOMstrings.firstName).value + " " + document.getElementById(DOMstrings.lastName).value;
+		var m = new Date().getMonth() + 1;
+		if (m < 10) {
+			m = '0' + m;
+		}
+		var d = new Date().getDate();
+		if (d < 10) {
+			d = '0' + d;
+		}
+		var y = new Date().getFullYear();
+		var acceptedOn = m + "/" + d + "/" + y;
+		document.getElementById(DOMstrings.acceptedOn).value = acceptedOn;
+
+		// Check for errors
+		if (errors > 0) {
+			return false;
+		} 
+
+		// Submit form -- uncomment to transmit data, remove preventDefault below.
+		// document.getElementById(DOMstrings.form).submit();
+
+		// Github file prevent submit
+		event.preventDefault();
+	}
+</script>	
+</body>
+</html>

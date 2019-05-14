@@ -1,0 +1,191 @@
+<html>
+	<head>
+		<link href='https://fonts.googleapis.com/css?family=Poppins:400,600,500,300,700|Quicksand:700&ver=4.9.4' rel='stylesheet' type='text/css' media='all' />
+		<style>
+			.calculator {
+		    	background: white;
+		        width: 100%;
+		        font-family: "Poppins", sans-serif;
+		        margin: 0 auto;
+		        display: block;
+		        max-width: 360px;
+		        border: 1px solid #333333;
+		        border-radius: 5px;
+		    }
+
+		    .calculator-title {
+		    	text-align: center;
+		        font-size: 18px;
+		        font-weight: 400;
+		        color: #9d9d9d;
+		        line-height: 2.6;
+		        margin: 0 0 20px;
+		    }
+
+		    .form-field {
+		        margin: 0 auto;
+		        width: 80%;
+		    }
+		    .form-field input {
+		        font-family: inherit;
+		        width: 100%;
+		        height: 45px;
+		        margin: 10px 0;
+		        padding: 0 20px;
+		        box-sizing: border-box;
+		        font-size: 13px;
+		        color: #333333;
+		        line-height: 45px;
+		        border-radius: 0px;
+		        border: 1px solid #9D9D9D;
+		        transition: 0.6s ease-in-out;
+		        text-align: center;
+		    }
+
+		    .form-field .results {
+		    	margin: 0 0 10px;
+		    }
+
+		    .form-field__label {
+		    	transition: 0.3s ease all;
+		    	opacity: 0;
+		    	font-size: 10px;
+		    	position: absolute;
+		    	margin-top: -40px;
+		    }
+
+		    .form-field__label--visible {
+		    	opacity: 1;
+		    	font-size: 10px;
+		    	margin-bottom: -10px;
+		    }
+
+		    .form-field input:focus ~ .form-field__label  {
+		    	opacity: 1;
+		    	margin-top: -70px;
+		    }
+
+			.calculate {
+		        margin: 20px auto;
+		        text-align: center;
+		    }
+		    .calculate button {
+		        width: 80%;
+		        height: 50px;
+		        line-height: 40px;
+		        background-color: #00a9e0;
+		        font-size: 12px;
+		        letter-spacing: 1px;
+		        text-transform: uppercase;
+		        color: #fff;
+		        border: 0;
+		        transition: 0.1s ease-in-out;
+		        outline: none;
+		        -webkit-appearance: none;
+		        cursor: pointer;
+		    }
+			.calculate input:hover, .calculate input:active, .calculate input:focus {
+				background-color: #00a9e0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="calculator">
+			<h2 class="calculator-title">Food Cost Calculator</h2>
+			<div class="form-field">
+				<input type="number" id="openingInventoryValue" value="" placeholder="Opening Inventory Value"/>
+				<label for="openingInventoryValue" id="openingInventoryValue--label" class="form-field__label">Opening Inventory Value in Dollars</label>
+			</div>
+			<div class="form-field">
+				<input type="number" id="costOfPurchases" value="" placeholder="Costs Of Purchases"/>
+				<label for="costOfPurchases" id="costOfPurchases--label" class="form-field__label">Costs Of Purchases in Dollars</label>
+			</div>
+			<div class="form-field">
+				<input type="number" id="closingInventoryValue" value="" placeholder="Closing Inventory Value"/>
+				<label for="closingInventoryValue" id="closingInventoryValue--label" class="form-field__label">Closing Inventory Value in Dollars</label>
+			</div>
+			<div class="form-field">
+				<input type="number" id="foodSalesRevenue" value="" placeholder="Food Sales Revenue"/>
+				<label for="foodSalesRevenue" id="foodSalesRevenue--label" class="form-field__label">Food Sales Revenue in Dollars</label>
+			</div>
+			<p class="calculate">
+				<button onclick="calculate();">Calculate Costs</button>
+			</p>
+			<div class="form-field">
+				<label for="costOfPurchases" class="form-field__label--visible">Your Cost of Goods Sold</label>
+				<input class="results" id="costOfGoodsSold" value="" readonly/>
+			</div>
+			<div class="form-field">
+				<label for="costOfPurchases" class="form-field__label--visible">Your Profit Margin</label>
+				<input class="results" id="profitMargin" value="" readonly/>
+			</div>
+		</div>
+	</body>
+	<script>
+		document.getElementById('openingInventoryValue').addEventListener("input", function() {
+			if (document.getElementById('openingInventoryValue').value !== "") {
+				document.getElementById('openingInventoryValue--label').style.opacity = '1';
+				document.getElementById('openingInventoryValue--label').style.marginTop = '-70px';
+			} else {
+				document.getElementById('openingInventoryValue--label').style.opacity = '0';
+				document.getElementById('openingInventoryValue--label').style.marginTop = '-40px';
+			}
+		});
+
+		document.getElementById('costOfPurchases').addEventListener("input", function() {
+			if (document.getElementById('costOfPurchases').value !== "") {
+				document.getElementById('costOfPurchases--label').style.opacity = '1';
+				document.getElementById('costOfPurchases--label').style.marginTop = '-70px';
+			} else {
+				document.getElementById('costOfPurchases--label').style.opacity = '0';
+				document.getElementById('costOfPurchases--label').style.marginTop = '-40px';
+			}
+		});
+
+		document.getElementById('closingInventoryValue').addEventListener("input", function() {
+			if (document.getElementById('closingInventoryValue').value !== "") {
+				document.getElementById('closingInventoryValue--label').style.opacity = '1';
+				document.getElementById('closingInventoryValue--label').style.marginTop = '-70px';
+			} else {
+				document.getElementById('closingInventoryValue--label').style.opacity = '0';
+				document.getElementById('closingInventoryValue--label').style.marginTop = '-40px';
+			}
+		});
+
+		document.getElementById('foodSalesRevenue').addEventListener("input", function() {
+			if (document.getElementById('foodSalesRevenue').value !== "") {
+				document.getElementById('foodSalesRevenue--label').style.opacity = '1';
+				document.getElementById('foodSalesRevenue--label').style.marginTop = '-70px';
+			} else {
+				document.getElementById('foodSalesRevenue--label').style.opacity = '0';
+				document.getElementById('foodSalesRevenue--label').style.marginTop = '-40px';
+			}
+		});
+
+
+		function costsOfGoodsFormula(openingInventoryValue, costOfPurchases, closingInventoryValue, foodSalesRevenue) {
+			let usageAmount = openingInventoryValue + costOfPurchases - closingInventoryValue;
+			let costsOfGoodsSold = (usageAmount / foodSalesRevenue) * 100;
+			costsOfGoodsSold = parseFloat(Math.round(costsOfGoodsSold * 100) / 100).toFixed(2);
+			return costsOfGoodsSold;
+		}
+
+		function profitMarginFormula() {
+			let costsOfGoodsSold = document.getElementById('costOfGoodsSold').value;
+			let profitMarginValue = 100 - parseFloat(costsOfGoodsSold);
+			profitMarginValue = parseFloat(Math.round(profitMarginValue * 100) / 100).toFixed(2);
+			return profitMarginValue;
+		}
+
+		function calculate() {
+			let openingInventoryValue = parseFloat(document.getElementById('openingInventoryValue').value);
+			let costOfPurchases = parseFloat(document.getElementById('costOfPurchases').value);
+			let closingInventoryValue = parseFloat(document.getElementById('closingInventoryValue').value);
+			let foodSalesRevenue = parseFloat(document.getElementById('foodSalesRevenue').value);
+
+			document.getElementById('costOfGoodsSold').value = costsOfGoodsFormula(openingInventoryValue, costOfPurchases, closingInventoryValue, foodSalesRevenue) + "%";
+			document.getElementById('profitMargin').value = profitMarginFormula() + "%";
+			return false;
+		}
+	</script>
+</html>

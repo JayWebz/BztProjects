@@ -1,0 +1,668 @@
+<html>
+<head>
+	<!-- app id only works from domain registered with key -->
+	<meta property="fb:app_id" content="XXXXXXXXXXXXXXX" />
+	<meta property="og:url" content="https://www.buztime.com/business/blog" >
+	<meta property="og:type" content="article" >
+	<meta property="og:title" content="Which Iconic Vodka Cocktail Are You?" >
+	<meta property="og:description" content="Need a new drink order? Take this fun vodka cocktail quiz to find out which drink best matches your personality. Bottoms up!" >
+	<meta property="og:image" content="https://stg.buzztime.com/business/wp-content/uploads/2018/09/no-answer.png" >
+	<meta property="og:image:width" content="971" >
+	<meta property="og:image:height" content="509" >
+	<style>
+
+		pre, #submit + br {
+			display: none;
+		}
+		.quiz-container {
+			width: 100%;
+			max-width: 500px;
+			font-family: 'Poppins';
+			border: 1px solid #9d9d9d;
+			border-radius: 5px;
+			box-sizing: border-box;
+			padding: 10px;
+			margin: 0 auto;
+		}
+		.question {
+			display: block;
+			height: 40px;
+			background-color: #4F287D;
+			color: white;
+			text-align: center;
+			line-height: 40px;
+			margin: 5px 0;
+			font-weight: 700;
+		}
+
+		.answers__label {
+			width: 47%;
+			display: inline-block;
+			font-size: 16px;
+			background-color: #FCFCFC;
+			margin: 5px 0.75%;
+			vertical-align: top;
+			border: 3px solid #9D9D9D;
+			text-align: center;
+			border-radius: 4px;
+			position: relative;
+			cursor: pointer;
+		}
+
+		.answers__label:nth-child(even) {
+			margin-left: 1%;
+		}
+
+		.answers__label:last-child {
+			display: none;
+		}
+
+		.answers__label-text {
+			display: flex;
+			align-self: stretch;
+		}
+
+		.answers__label > input {
+			visibility: hidden;
+			position: absolute;
+		}
+
+		.answers__label > input ~ .answers__label-text {
+			cursor: pointer;
+			border: 2px solid transparent;
+			height: 60px;
+			position: relative;
+			padding: 0 10px;
+			box-sizing: border-box;
+			width: 101%;
+			display: table;
+			border-collapse: separate;
+		}
+
+		.answers__label > input ~ .answers__label-text div {
+			vertical-align: middle;
+    	display: table-cell;
+		}
+
+		.answers__label > input:checked ~ .answers__label-text {
+			background-color: #69be28;
+		}
+
+		.answers__label-img {
+			width: 100%;
+			cursor: pointer;
+		}
+
+		.answers__label > input ~ .answers__label-img--overlay {
+			top: -3px;
+	    	left: -3px;
+		    height: 100%;
+		    width: 100%;
+		    border-radius: 4px;
+		    position: absolute;
+		    border: 3px solid #9d9d9d;
+		    transition: 0.2s;
+		}
+
+		.answers__label > input:checked ~ .answers__label-img--overlay {
+	    border: 3px solid #69be28;
+	    background-color: rgba(252, 252, 252, 0)!important;
+		}
+
+		.deselected {
+			background-color: rgba(252, 252, 252, 0.4);
+		}
+
+		.button,
+		#results .button {
+			width: 49%;
+			height: 50px;
+			line-height: 40px;
+			background-color: #00a9e0;
+			font-size: 16px;
+			font-weight: 700;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			color: #fff;
+			border: 0;
+			transition: 0.1s ease-in-out;
+			outline: none;
+			-webkit-appearance: none;
+			cursor: pointer;
+			margin-top: 10px;
+			border: 1px solid #00a9e0;
+			margin-left: 0.33%;
+    	}
+
+    	#results .button:hover {
+    		background-color: #000;
+    	}
+
+		.button input:hover, .calculate input:active, .calculate input:focus {
+			background-color: #00a9e0;
+		}
+
+		.results-container {
+			margin-top: 10px;
+			border: 1px solid #9d9d9d;
+			box-sizing: border-box;
+			padding: 10px;
+			border-radius: 5px;
+		}
+
+		.results-img {
+			float: left;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
+
+		.results-header {
+			display: block;
+			height: 200px;
+			line-height: 200px;
+			text-align: center;
+		}
+
+		#shareBtn {
+			color: #fff;
+	    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+	    background-color: #5bb75b;
+	    background-image: -moz-linear-gradient(top,#62c462,#51a351);
+	    background-image: -webkit-gradient(linear,0 0,0 100%,from(#62c462),to(#51a351));
+	    background-image: -webkit-linear-gradient(top,#62c462,#51a351);
+	    background-image: -o-linear-gradient(top,#62c462,#51a351);
+	    background-image: linear-gradient(to bottom,#62c462,#51a351);
+	    background-repeat: repeat-x;
+	    border-color: #51a351 #51a351 #387038;
+	    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+	    width: 78px;
+	    height: 29px;
+		}
+	</style>
+	<script>
+		// FB Share
+		window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '311555082951775',
+		      xfbml      : true,
+		      version    : 'v2.7'
+		    });
+	    };
+
+	  (function(d, s, id) {
+	  	var js, fjs = d.getElementsByTagName(s)[0];
+	  	if (d.getElementById(id)) return;
+	  	js = d.createElement(s); js.id = id;
+	  	js.src = 'https://connect.facebook.net/en_US/sdk.js';
+	  	fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700" rel="stylesheet">
+</head>
+<body>
+	<div class="quiz-container">
+		<div id="quiz"></div>
+<button class="button" id="submit">Submit Quiz</button>
+<button class="button" id="reset" onClick="resetQuiz();">Reset Quiz</button>
+<div id="results"></div>
+	</div>
+<script>
+	const quizContainer = document.getElementById('quiz');
+	const resultsContainer = document.getElementById('results');
+	const submitButton = document.getElementById('submit');
+	let quizOutcome = {};
+
+	const quizQuestions = [
+	  {
+	    question: "Pick your favorite season.",
+	    questionNo: 1,
+	    answers: {
+	      a: "Fall",
+	      b: "Winter",
+	      c: "Summer",
+	      d: "Spring",
+	      img: {
+		    	a: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-67.png",
+		    	b: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-64.png",
+		    	c: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-66.png",
+		    	d: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-65.png"
+	    	} 
+	    }
+	  },
+	  {
+	    question: "Select your ideal home décor.",
+	    questionNo: 2,
+	    answers: {
+	      a: "Eclectic and Unique.",
+	      b: "Classic and cool.",
+	      c: "Comfortable and bright.",
+	      d: "Modern and minimal.",
+	      img: {
+		    	a: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-70.png",
+		    	b: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-69.png",
+		    	c: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-71.png",
+		    	d: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-68.png"
+	    	} 
+	    }
+	  },
+	  {
+	    question: "What is your dream vacation?",
+	    questionNo: 3,
+	    answers: {
+	      a: "Marrakesh.",
+	      b: "Quiet getaway to clear your head.",
+	      c: "Chill glamping with the squad.",
+	      d: "Rent a beach house. Bring all your friends. Party. Repeat.",
+	      img: {
+		    	a: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-75.png",
+		    	b: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-74.png",
+		    	c: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-72.png",
+		    	d: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-73.png"
+	    	} 
+	    }
+	  },
+	  {
+	    question: "Pick your spirit animal.",
+	    questionNo: 4,
+	    answers: {
+	      a: "Sloth",
+	      b: "Squirrel",
+	      c: "Koala",
+	      d: "Tiger",
+	      img: {
+		    	a: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-79.png",
+		    	b: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-76.png",
+		    	c: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-77.png",
+		    	d: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-78.png"
+	    	} 
+	    }
+	  },
+	  {
+	    question: "You have a free weekend. What do you do?",
+	    questionNo: 5,
+	    answers: {
+	      a: "Road trip.",
+	      b: "Binge watch a show. Then catch up on work.",
+	      c: "Chill brunch with friends.",
+	      d: "Party. All. Weekend. (Duh)",
+	      img: {
+		    	a: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-81.png",
+		    	b: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-80.png",
+		    	c: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-82.png",
+		    	d: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-83.png"
+	    	} 
+	    }
+	  },
+	  {
+	    question: "What kind of movie will you watch next?",
+	    questionNo: 6,
+	    answers: {
+	      a: "The latest indie flick",
+	      b: "Action or spy movie. (Bonus if it has cool cars).",
+	      c: "A romantic comedy (no judging).",
+	      d: "A comedy.",
+	      img: {
+		    	a: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-84.png",
+		    	b: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-87.png",
+		    	c: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-88.png",
+		    	d: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-85.png"
+	    	} 
+	    }
+	  },
+	  {
+	    question: "Pick the color you're drawn to first.",
+	    questionNo: 7,
+	    answers: {
+	      a: "Green",
+	      b: "Blue",
+	      c: "Snake Person pink",
+	      d: "Burnt orange",
+	      img: {
+		    	a: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-90.png",
+		    	b: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-91.png",
+		    	c: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-92.png",
+		    	d: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/shutterstock_228054313.jpg"
+	    	} 
+	    }
+	  }
+	];
+
+	function buildQuiz(){
+	  // store the HTML output
+	  const output = [];
+
+	  // for each question...
+	  quizQuestions.forEach(
+	    (currentQuestion, questionNumber) => {
+
+	      // store list of answer choices
+	      const answers = [];
+
+	      // and for each available answer...
+	      for(letter in currentQuestion.answers) {
+	        // ...add an HTML radio button
+	        answers.push(
+	          `<label class="answers__label">
+	            <input class="input" type="radio" name="question${questionNumber}" value="${letter}">
+	            <img class="answers__label-img" src=${currentQuestion.answers.img[letter]} alt="" />
+	            <div class="answers__label-img--overlay"></div>
+	            <div class="answers__label-text">
+	            	<div>
+	            ${currentQuestion.answers[letter]}
+	            </div>
+	            </div>
+	          </label>`
+	        );
+	      }
+
+	      // add this question and its answers to the output
+	      output.push(
+	        `<div class="question"> ${currentQuestion.question} </div>
+	        <div class="answers ${[questionNumber + 1]}" onClick="checkboxStyles();"> ${answers.join('')} </div>`
+	      );
+	    }
+	  );
+
+	  // combine output into one string of HTML and print to page
+	  quizContainer.innerHTML = output.join('');
+	
+
+	  let labelHeights = [];
+	  const labels = document.querySelectorAll('.answers__label-text');
+	  labelHeights.forEach.call(labels, function(label) {
+	  	labelHeights.push(label.offsetHeight);
+	  });
+
+
+	  
+	  labelHeights.forEach.call(labels, function(label) {
+	  	console.log(labelHeights);
+	  	label.style.height = `${Math.max(...labelHeights)}px`;
+	  });
+	}
+
+	// Grey out unselected options in a question
+	function checkboxStyles() {		
+		let questionsAnswered = [];
+		let questionChecked;
+		let questionCheckedLen = document.querySelectorAll('input[type="radio"]:checked').length;
+		let unselected = document.getElementsByClassName('answers__label-img--overlay');
+
+		// Determine which questions have answers already
+		for (let i = 0; i < questionCheckedLen; i++) {
+			questionChecked = document.querySelectorAll('input[type="radio"]:checked')[i].parentNode.parentNode.outerHTML[20];
+			questionsAnswered.push(questionChecked);				
+		}
+		
+		// For each question answered, and for each unselected option in that question, grey out unselected
+		for (let i = 0; i < questionsAnswered.length; i++) {
+			for (let j = 1; j < 6; j++) {
+				unselected[(questionsAnswered[i] * 5) - j].setAttribute("class", "answers__label-img--overlay deselected");
+			}
+		}
+	}
+
+	function showResults(){
+	  // gather answer containers from quiz
+	  const answerContainers = quizContainer.querySelectorAll('.answers');
+
+	  // keep track of user's answers
+	  let numSelectA = 0;
+	  let numSelectB = 0;
+	  let numSelectC = 0;
+	  let numSelectD = 0;
+	  let unansweredQ = 0;
+
+	  // for each question...
+	  quizQuestions.forEach( (currentQuestion, questionNumber) => {
+
+	    // find selected answer
+	    const answerContainer = answerContainers[questionNumber];
+	    const selector = 'input[name=question'+questionNumber+']:checked';
+	    const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+	    // if answer is correct, count answer
+	    if(userAnswer=== "a") {
+	      numSelectA++;
+	      answerContainers[questionNumber].style.color = 'black';
+	    } else if(userAnswer=== "b") {
+	      numSelectB++;
+	      answerContainers[questionNumber].style.color = 'black';
+	    } else if(userAnswer=== "c") {
+	      numSelectC++;
+	      answerContainers[questionNumber].style.color = 'black';
+	    } else if (userAnswer=== "d") {
+	      numSelectD++;
+	      answerContainers[questionNumber].style.color = 'black';
+	    } 
+	    // if answer is blank
+	    else {
+	      // color the answers red, tally on unansweredQ
+	      answerContainers[questionNumber].style.color = 'red'; 
+	      unansweredQ++;
+	    }
+	  });
+
+	  // if unanswered questions, display error
+	  if (unansweredQ > 0) {
+	  	resultsContainer.innerHTML =  "Please answer all questions";
+	  } else {
+	  	
+	  	// gather scores
+		  let scoresDict = {a: numSelectA, b: numSelectB, c: numSelectC, d: numSelectD};
+		  //console.log(scoresDict);
+
+		  // find the highest score number
+		  let scoresArray = Object.keys(scoresDict).map(function (score) { 
+		  	return scoresDict[score]; 
+		  }); 
+		  let highestScore = Math.max.apply( null, scoresArray);
+		  //console.log("highestScore: " + highestScore);
+
+		  // find if duplicate score values exist
+		  let dupeCount = -1;
+		  Object.keys(scoresDict).forEach(function(key) {
+		  	if(scoresDict[key] === highestScore) {
+		  		dupeCount++;
+		  	}
+		  }); 
+		  //console.log("dupeCount: " + dupeCount);
+		  
+		  // if tie, randomly pick a letter out of highest score options
+		  // else return option affiliated with highest score
+		  let winningOption;
+			let highScoreKeys = [];
+			if (dupeCount > 0) {
+		  	highScoreKeys = Object.keys(scoresDict).filter(function(key) {
+			  	return scoresDict[key] === highestScore;	
+			  }); 
+			  //console.log("highScoreKeys: " + highScoreKeys);
+			  let winningKey = highScoreKeys[Math.floor(Math.random() * highScoreKeys.length)];
+		  	winningOption = winningKey;
+		  } else {
+			  Object.prototype.getKeyByValue = function (highestScore) {
+			    for (let prop in this) {
+			    	if( this.hasOwnProperty(prop)) {
+			    		if (this[prop] === highestScore) {
+			    			return prop;
+			    		}
+			    	}
+			    }
+				}
+				winningOption = scoresDict.getKeyByValue(highestScore);
+				// Store winningOption value to be used to dictate content for share buttons
+				quizOutcome.letter = winningOption;
+		  }
+		  //console.log("winningOption: " + winningOption);
+
+		  const quizResults = [
+	  		{
+	    		a: [
+	    			{
+		    			img: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/shutterstock_482166883.jpg",
+		    			heading: "You're a White Russian",
+		    			motto: " You do you",
+		    			theme: "Looking Out My Back Door by Creedence Clearwater Revival",
+		    			description: "You don’t care what people think of you – just like “The Dude” in the movie, The Big Lebowski. You have an open mind and laid-back personality. People say you’re the best listener and give great advice. In another life, you were a philosopher or a rug weaver. So, kick back like the Dude or Dudette that you are, and whip up a White Russian.",
+		    			historyTitle: "History of the White Russian",
+		    			history: 'This icy cool drink was <a href="https://vinepair.com/cocktail-recipe/white-russian/">invented by a Belgian bartender</a> for a U.S. ambassador. (The “Russian” just refers to vodka.) The original Black Russian was super simple: featuring coffee liquor (like Kahlua) and vodka. The White Russian just adds half and half or fresh cream.' 
+	    			}
+	    		],
+	    		b: [
+	    			{
+		    			img: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/shutterstock_1098618353.jpg",
+		    			heading: "You're a Vesper",
+		    			motto: ' “Aut viam inveniam aut faciam.” – Roman General Hannibal (“I’ll either find a way or make one”)',
+		    			theme: " Survival by Muse (played live at the 2012 Olympic Games)",
+		    			description: "You’re a clever one, aren’t you? You’ve been told you’re witty, resourceful – and a bit mysterious. You may seem serious, but you know how to cut loose. No one works as hard as you. You’ve got drive (and talent) to match. Your other motto? Work hard. Play hard.",
+		    			historyTitle: "History of the Vesper",
+		    			history: 'James Bond is indeed a man of mystery. He <a href="https://www.thespruceeats.com/vesper-martini-recipe-760130">invented the Vesper martini cocktail</a> (well, the author of the James Bond books, Ian Fleming, did.) The Vesper is a VERY strong martini that will have you speaking with a British accent if you’re not careful.' 
+	    			}
+	    		],
+	    		c: [
+	    			{
+		    			img: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/Untitled-design-93.png",
+		    			heading: "You're a Moscow Mule",
+		    			motto: ' “The future belongs to those who believe in the beauty of their dreams.” – Eleanor Roosevelt',
+		    			theme: " Don’t Stop Believin’ by Journey",
+		    			description: "You’re an optimist and a dreamer. To you, a goal is just a dream with a deadline. And you’ve got big goals. You also enjoy exploring – whether it’s a hike in nature or a walk around the city. Along the way, you always know how to have a great time.",
+		    			historyTitle: "History of the Moscow Mule",
+		    			history: 'Like the White Russian, the <a href="https://www.liquor.com/articles/behind-the-drink-the-moscow-mule/#gs.I14PyeU">Moscow Mule’s origins</a> aren’t remotely Russian. The drink was invented in the 1940s at the Cock n’ Bull pub in Los Angeles. The owner, Jack Morgan, had ordered too much ginger beer. And his liquor distributor, John Martin, just couldn’t get Americans into vodka (even though his company had just purchased rights to Smirnoff). <br/><br/>Martin and Morgan put their heads – and drinks together – to create the Moscow Mule and improve business. Why is it served in a copper cup? Morgan’s girlfriend was a copper heiress.' 
+	    			}
+	    		],
+	    		d: [
+	    			{
+		    			img: "https://stg.buzztime.com/business/wp-content/uploads/2018/08/shutterstock_644730403.jpg",
+		    			heading: "You're a Long Island Iced Tea",
+		    			motto: ' Let the good times roll',
+		    			theme: " Party Like a Rockstar (the Remix featuring Lil’ Wayne)",
+		    			description: "You’re the life of the party and a social butterfly. You make friends easily – and always have their back. Oh, and you tell the best jokes. Just like the Long Island Iced Tea, you’re not pretentious and you know how to get the party started…",
+		    			historyTitle: "History of the Long Island Iced Tea",
+		    			history: 'A Tennessee town with a 4-mile island in a river claims the drink is <a href="https://www.longislandpress.com/2018/05/10/tennessee-claims-it-invented-the-long-island-iced-tea/">named after their long island</a>. Specifically, they believe Robert “Rosebud” Butt (that name) invented the famed spring break sipper. The Long Island tourism folks disagree. The LI Iced Tea is also known as the Adios Mother…' 
+	    			}
+	    		]
+	 			}
+	 		];
+
+		  const quizResultTemplate = 
+		  	`<div class="results-container">
+		  		<div class="results-header">
+		  			<img class="results-img" src="${quizResults[0][winningOption][0]["img"]}"/>
+		  			<p><strong>${quizResults[0][winningOption][0]["heading"]}</strong></p>
+	  			</div>
+		  	<p><em>Your Motto: </em> ${quizResults[0][winningOption][0]["motto"]}</p>
+		  	<p><em>Your Theme Song: </em> ${quizResults[0][winningOption][0]["theme"]}</p>
+		  	<p>${quizResults[0][winningOption][0]["description"]}</p>
+		  	<p><em>${quizResults[0][winningOption][0]["historyTitle"]}</em></p>
+		  	<p>${quizResults[0][winningOption][0]["history"]}</p></div><button class="button" onclick="return shareResultsFacebook();"/><i class="fa fa-facebook-square" aria-hidden="true"></i> Share to Facebook</button><button onclick="return shareResultsTwitter();" class="button twitter-share"/><i class="fa fa-twitter-square" aria-hidden="true"></i> Share to Twitter</button>`;
+
+		  resultsContainer.innerHTML = quizResultTemplate;
+	  }
+	}
+
+	function shareResultsFacebook()	{
+		// get the selected answer
+		let val = quizOutcome.letter;		
+		var title = '';
+		var description = '';
+		var image = '';
+		switch(val)
+		{
+			case 'a':
+				title = 'I got a White Russian!';
+				description = 'You don’t care what people think of you – just like “The Dude” in the movie, The Big Lebowski. You have an open mind and laid-back personality. People say you’re the best listener and give great advice. In another life, you were a philosopher or a rug weaver. So, kick back like the Dude or Dudette that you are, and whip up a White Russian.';
+				image = 'https://stg.buzztime.com/business/wp-content/uploads/2018/09/white-russian.png';
+			break;
+			case 'b':
+				title = 'I got a Vesper!';
+				description = 'You’re a clever one, aren’t you? You’ve been told you’re witty, resourceful – and a bit mysterious. You may seem serious, but you know how to cut loose. No one works as hard as you. You’ve got drive (and talent) to match. Your other motto? Work hard. Play hard.';
+				image = 'https://stg.buzztime.com/business/wp-content/uploads/2018/09/vesper.png';
+			break;
+			case 'c':
+				title = 'I got a Moscow Mule!';
+				description = 'You’re an optimist and a dreamer. To you, a goal is just a dream with a deadline. And you’ve got big goals. You also enjoy exploring – whether it’s a hike in nature or a walk around the city. Along the way, you always know how to have a great time.';
+				image = 'https://stg.buzztime.com/business/wp-content/uploads/2018/09/MM.png';
+			break;
+			default:
+				title = 'I got a Long Island Iced Tea!';
+				description = 'You’re the life of the party and a social butterfly. You make friends easily – and always have their back. Oh, and you tell the best jokes. Just like the Long Island Iced Tea, you’re not pretentious and you know how to get the party started…';
+				image = 'https://stg.buzztime.com/business/wp-content/uploads/2018/09/long-island.png';
+			break;
+		}
+		// and finally share it
+		
+		shareOverrideOGMeta('https://bit.ly/2MOzien', title, description, image);
+		
+		return false;
+	}
+
+	function shareOverrideOGMeta(overrideLink, overrideTitle, overrideDescription, overrideImage) {
+		FB.ui({
+			method: 'share_open_graph',
+			action_type: 'og.likes',
+			action_properties: JSON.stringify({
+				object: {
+					'og:url': overrideLink,
+					'og:title': overrideTitle,
+					'og:description': overrideDescription,
+					'og:image': overrideImage
+				}
+			})
+		},
+		function (response) {
+		// Action after response
+		});
+	}
+
+	function shareOriginal()
+	{
+		FB.ui({
+			method: 'share',
+			href: window.location.href
+		},
+		function (response) {
+		// Action after response
+		});
+		
+		return false;
+	}
+
+	function shareResultsTwitter() {
+		var val = quizOutcome.letter;
+		var linkBack = "%20https://bit.ly/2PbuY6k";
+		var text = '';
+		switch(val)
+		{
+			case 'a':
+				text = "I%20got%20a%20White%20Russian!";
+				break;
+			case 'b':
+				text = "I%20got%20a%20Vesper!";
+				break;
+			case 'c':
+				text = "I%20got%20a%20Moscow%20Mule!";
+				break;
+			default:
+				text = "I%20got%20a%20Long%20Island%20Iced%20Tea!";
+				break;
+		}
+		text = text + linkBack;
+		var url = "https://twitter.com/intent/tweet?text=" + text + "&via=buzztime&hashtags=buzztime,trivia";
+		window.open(url, "Share your quiz results to Twitter!", "width=420,height=230,resizable,scrollbars=yes,status=1");
+	}
+
+	// reset quiz
+	function resetQuiz() {
+		delete Object.prototype.getKeyByValue;
+		buildQuiz();
+		resultsContainer.innerHTML = "";
+	}
+
+	// display quiz on load
+	buildQuiz();
+
+	// on submit, show results
+	submitButton.addEventListener('click', showResults);
+</script>
+</body>
+</html>

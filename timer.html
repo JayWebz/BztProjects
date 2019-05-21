@@ -1,0 +1,373 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
+    <style>
+      #timer-container {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #5c7f92;
+        font-family: 'Poppins', sans-serif;
+      }
+    
+    .flip-clock {
+      text-align: center;
+      -webkit-perspective: 400px;
+              perspective: 400px;
+      margin: 20px auto;
+      max-width: 700px;
+    }
+    
+    .flip-clock *,
+    .flip-clock *:before,
+    .flip-clock *:after {
+      box-sizing: border-box;
+    }
+    
+    .flip-clock__piece {
+      display: inline-block;
+      margin: 0 5px;
+      max-width: 160px;
+    }
+    
+    .flip-clock__slot {
+      font-size: 2vw;
+      color: #fff;
+    }
+
+    @media screen and (min-width: 1260px) {
+      .flip-clock__slot {
+        font-size: 26px;
+      }
+    }
+    
+    .card {
+      display: block;
+      position: relative;
+      padding-bottom: 0.72em;
+      font-size: 4.8vw;
+      line-height: 0.95;
+      box-shadow: 0 4px 14px #000;
+    }
+
+    @media screen and (min-width: 1975px) {
+      .card {
+        font-size: 91px;
+      }
+    }
+
+    @media screen and (max-width:1000px) and (min-width: 651px) {
+      .card {
+        font-size: 9vw;
+      }
+    }
+
+    @media screen and (max-width:650px) and (min-width: 450px) {
+      .card {
+        font-size: 52px;
+      }
+    }
+
+    @media screen and (max-width:449px) {
+      .card {
+        font-size: 40px;
+      }
+    }
+    
+    .card__top,
+    .card__bottom,
+    .card__back::before,
+    .card__back::after {
+      display: block;
+      height: 0.72em;
+      letter-spacing: -5px;
+      color: #000;
+      background: #fff;
+      padding: 0.25em 0.25em;
+      backface-visiblity: hidden;
+      -webkit-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+      width: 1.8em;
+      max-width: 160px;
+      -webkit-transform: translateZ(0);
+              transform: translateZ(0);
+    }
+
+    @media screen and (min-width: 1900px) {
+      .card__top, .card__bottom, card__back {
+        font-size: 91px;
+      }
+    }
+    
+    .card__bottom {
+      color: #000;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      border-top: solid 1px #ddd;
+      background: #fbfbfb;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    
+    .card__bottom::after {
+      display: block;
+      margin-top: -0.72em;
+    }
+    
+    .card__back::before,
+    .card__bottom::after {
+      content: attr(data-value);
+    }
+    
+    .card__back {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      left: 0%;
+      pointer-events: none;
+    }
+    
+    .card__back::before {
+      position: relative;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .flip .card__back::before {
+      -webkit-animation: flipTop 0.3s cubic-bezier(0.37, 0.01, 0.94, 0.35);
+              animation: flipTop 0.3s cubic-bezier(0.37, 0.01, 0.94, 0.35);
+      -webkit-animation-fill-mode: both;
+              animation-fill-mode: both;
+      -webkit-transform-origin: center bottom;
+              transform-origin: center bottom;
+    }
+    
+    .flip .card__back .card__bottom {
+      -webkit-transform-origin: center top;
+              transform-origin: center top;
+      -webkit-animation-fill-mode: both;
+              animation-fill-mode: both;
+      -webkit-animation: flipBottom 0.6s cubic-bezier(0.15, 0.45, 0.28, 1);
+              animation: flipBottom 0.6s cubic-bezier(0.15, 0.45, 0.28, 1);
+    }
+    
+    @-webkit-keyframes flipTop {
+      0% {
+        -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+        z-index: 2;
+      }
+      0%,
+      99% {
+        opacity: 0.99;
+      }
+      100% {
+        -webkit-transform: rotateX(-90deg);
+                transform: rotateX(-90deg);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes flipTop {
+      0% {
+        -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+        z-index: 2;
+      }
+      0%,
+      99% {
+        opacity: 0.99;
+      }
+      100% {
+        -webkit-transform: rotateX(-90deg);
+                transform: rotateX(-90deg);
+        opacity: 0;
+      }
+    }
+    
+    @-webkit-keyframes flipBottom {
+      0%,
+      50% {
+        z-index: -1;
+        -webkit-transform: rotateX(90deg);
+                transform: rotateX(90deg);
+        opacity: 0;
+      }
+      51% {
+        opacity: 0.99;
+      }
+      100% {
+        opacity: 0.99;
+        -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+        z-index: 5;
+      }
+    }
+    
+    @keyframes flipBottom {
+      0%,
+      50% {
+        z-index: -1;
+        -webkit-transform: rotateX(90deg);
+                transform: rotateX(90deg);
+        opacity: 0;
+      }
+      51% {
+        opacity: 0.99;
+      }
+      100% {
+        opacity: 0.99;
+        -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+        z-index: 5;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="timer-container">
+  </div>
+  <script type="text/javascript">
+    function CountdownTracker(label, value) {
+
+      var html = document.createElement('span');
+
+      html.className = 'flip-clock__piece';
+      html.innerHTML = '<b class="flip-clock__card card"><b class="card__top"></b><b class="card__bottom"></b><b class="card__back"><b class="card__bottom"></b></b></b>' + 
+        '<span class="flip-clock__slot">' + label + '</span>';
+
+      this.html = html;
+
+      var top = html.querySelector('.card__top'),
+          bottom = html.querySelector('.card__bottom'),
+          back = html.querySelector('.card__back'),
+          backBottom = html.querySelector('.card__back .card__bottom');
+
+      this.update = function(val){
+        val = ( '0' + val ).slice(-2);
+        if ( val !== this.currentValue ) {
+          
+          if ( this.currentValue >= 0 ) {
+            back.setAttribute('data-value', this.currentValue);
+            bottom.setAttribute('data-value', this.currentValue);
+          }
+          this.currentValue = val;
+          top.innerText = this.currentValue;
+          backBottom.setAttribute('data-value', this.currentValue);
+
+          this.html.classList.remove('flip');
+          void this.html.offsetWidth;
+          this.html.classList.add('flip');
+        }
+      }
+      
+      this.update(value);
+    }
+
+    function getTimeRemaining(endtime) {
+      var t = Date.parse(endtime) - Date.parse(new Date());
+      return {
+        'Total': t,
+        'Days': Math.floor(t / (1000 * 60 * 60 * 24)),
+        'Hours': Math.floor((t / (1000 * 60 * 60)) % 24),
+        'Minutes': Math.floor((t / 1000 / 60) % 60),
+        'Seconds': Math.floor((t / 1000) % 60)
+      };
+    }
+
+    function getTime() {
+      var t = new Date();
+      return {
+        'Total': t,
+        'Hours': t.getHours() % 12,
+        'Minutes': t.getMinutes(),
+        'Seconds': t.getSeconds()
+      };
+    }
+
+    function findEndDate() {
+      let month = new Date().getMonth() + 1;
+      let year = new Date().getFullYear();
+
+      switch(month) {
+        case 1:
+        case 3:
+        case 5: 
+        case 7: 
+        case 8:
+        case 10: 
+        case 12:
+          lastDay = 31;
+          break;
+        case 4:
+        case 6: 
+        case 9:
+        case 11:
+          lastDay = 30;
+          break;
+        case 2:
+          if (year % 4 == 0) {
+            lastDay = 29;
+          } else {
+            lastDay = 28;
+          }
+          break;
+      }
+      var deadlineDate = new Date(`${year}-${month < 10 ? `0${month}` : month}-${lastDay}T23:59:59`);
+      return deadlineDate
+    }
+
+    function Clock(countdown) {
+      countdown = countdown ? findEndDate() : false;
+      var updateFn = countdown ? getTimeRemaining : getTime;
+
+      this.html = document.createElement('div');
+      this.html.className = 'flip-clock';
+
+      var trackers = {},
+          t = updateFn(countdown),
+          key, timeinterval;
+
+      for ( key in t ){
+        if ( key === 'Total' ) { continue; }
+        trackers[key] = new CountdownTracker(key, t[key]);
+        this.html.appendChild(trackers[key].html);
+      }
+
+      var i = 0;
+      function updateClock() {
+        timeinterval = requestAnimationFrame(updateClock);
+        
+        // throttle so it's not constantly updating the time.
+        if ( i++ % 10 ) { return; }
+        
+        var t = updateFn(countdown);
+        if ( t.Total < 0 ) {
+          cancelAnimationFrame(timeinterval);
+          for ( key in trackers ){
+            trackers[key].update( 0 );
+          }
+          return;
+        }
+        
+        for ( key in trackers ){
+          trackers[key].update( t[key] );
+        }
+      }
+
+      setTimeout(updateClock,500);
+    }
+
+    function buildClock() {
+      var deadline = findEndDate();
+      var c = new Clock(deadline);
+      document.getElementById("timer-container").appendChild(c.html);
+    }
+
+    buildClock();
+    </script>
+  </body>
+</html>
